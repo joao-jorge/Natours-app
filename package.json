@@ -1,7 +1,7 @@
 {
   "name": "mp3",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
     "start:dev": "nodemon server.js",
@@ -21,5 +21,8 @@
     "path": "^0.12.7",
     "slugify": "^1.6.3",
     "validator": "^13.7.0"
+  },
+  "engines": {
+    "node":">=10.0.0"
   }
 }
