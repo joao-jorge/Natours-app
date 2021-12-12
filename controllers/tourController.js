@@ -19,19 +19,27 @@ exports.createTour = async (req, res) => {
 
 exports.getAllTours = async (req, res) => {
   try {
-    console.log(req.query)
-    const getAllTours = await Tour.find({duration: 5, difficulty: 'easy'})
+    // build query
+    const queryObj = {...req.query}
+    const excludedFields = ['sort', 'page', 'limit', 'fields']
+    excludedFields.forEach(el => delete queryObj[el])
+    const query = Tour.find(queryObj)
+    
+    //execute query
+    const tours = await query
+
+    //send response
     res.status(201).json({
       status: 'OK',
-      found: getAllTours.length,
+      found: tours.length,
       data: {
-        objects: getAllTours
+        objects: tours
       }
     })
   } catch(err) {
     res.status(400).json({
       status: 'Not ok',
-      error: err
+      error: err.message
     })
   }
 }
