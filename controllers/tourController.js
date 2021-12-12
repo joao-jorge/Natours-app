@@ -53,11 +53,11 @@ exports.getTour = async (req, res) => {
 
 exports.updateTour = async (req, res) => {
   try {
-    const tour = await Tour.findByIdAndupdate(req.params.id, req.body, {
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     })
-
+ console.log(tour)
     res.status(200).json({
       status: 'Ok',
       data: {
@@ -65,14 +65,28 @@ exports.updateTour = async (req, res) => {
       }
     })
   } catch(err) {
-
+    res.status(400).json({
+      status: 'Not ok', 
+      tip: err
+    })
   }
 }
 
 
 
-exports.deleteTour = (req, res) => {
-  
+exports.deleteTour = async (req, res) => {
+  try {
+    await Tour.deleteOne({_id: req.params.id})
+    res.status(204).json({
+      status: 'ok',
+      data: null
+    })
+  } catch(err) {
+    res.status(400).json({
+      status: 'Not ok',
+      message: err
+    })
+  }
 }
 
 /* OLD CODE
