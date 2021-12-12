@@ -12,14 +12,15 @@ exports.createTour = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: 'fail',
-      error: err
+      error: err.message
     })
   }
 }
 
 exports.getAllTours = async (req, res) => {
   try {
-    const getAllTours = await Tour.find()
+    console.log(req.query)
+    const getAllTours = await Tour.find({duration: 5, difficulty: 'easy'})
     res.status(201).json({
       status: 'OK',
       found: getAllTours.length,
